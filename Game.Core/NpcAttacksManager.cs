@@ -6,13 +6,10 @@ using UnityEngine;
 
 namespace Game.Core
 {
-
-    public enum AttackPhase { Preparing, Attacking, Finished }
     public class NpcAttacksManager
     {
-        private readonly WorldMap _worldMap;
-        private readonly Vector3[] _spawnPlacePositions;
-        private readonly INpcPrototype[] _npcPrototypes;
+        private readonly IWorldMap _worldMap;
+        private readonly INpcSpawner _npcSpawner;
         private float _lastSpawnTime;
         private float _attackStartTimeInSecs = float.MinValue;
         private uint _numberOfNpcCreatedInCurrentTurn = 0;
@@ -20,11 +17,10 @@ namespace Game.Core
         public WaveAttackInfo[] Waves { get; }
         public WaveAttackInfo CurrentWaveAttackInfo => Waves[_currentWaveIndex];
         public AttackPhase Phase { get; private set; }
-        public NpcAttacksManager(WorldMap worldMap, WaveAttackInfo[] waves, Vector3[] spawnPlacePositions, INpcPrototype[] npcPrototypes)
+        public NpcAttacksManager(IWorldMap worldMap, INpcSpawner npcSpawner,WaveAttackInfo[] waves) 
         {
             _worldMap = worldMap;
-            _spawnPlacePositions = spawnPlacePositions;
-            _npcPrototypes = npcPrototypes;
+            _npcSpawner = npcSpawner;
             Waves = waves;
         }
 
@@ -84,12 +80,8 @@ namespace Game.Core
         }
 
         public void CreateRandomNpc()
-        {
-            var spawnPlaceIndex = Random.Range(0, _spawnPlacePositions.Length);
-            var npcPrototypeIndex = Random.Range(0, _npcPrototypes.Length);
-
-            Npc npc = _npcPrototypes[npcPrototypeIndex].Create();
-            npc.SetPosition(_spawnPlacePositions[spawnPlaceIndex]);
+        {            
+            _npcSpawner.CreateRandomNpc();
             _numberOfNpcCreatedInCurrentTurn++;
         }
     }

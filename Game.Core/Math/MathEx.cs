@@ -8,7 +8,7 @@ namespace Game.Core.Math
         {
             // angle in [0,180]
             float angle = Vector3.Angle(a, b);
-            float sign = Mathf.Sign(Vector3.Dot(Vector3.up, Vector3.Cross(a, b)));
+            float sign = System.Math.Sign(Vector3.Dot(Vector3.up, Vector3.Cross(a, b)));
 
             // angle in [-179,180]
             float signed_angle = angle * sign;
@@ -17,6 +17,16 @@ namespace Game.Core.Math
             //float angle360 =  (signed_angle + 180) % 360;
 
             return signed_angle;
+        }
+
+        public static float Clamp(float value, float min, float max)
+        {
+            if (value > max)
+                return max;
+            if (value < min)
+                return min;
+
+            return value;
         }
     }
 }

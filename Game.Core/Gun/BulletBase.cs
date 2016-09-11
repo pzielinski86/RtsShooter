@@ -16,7 +16,7 @@ namespace Game.Core.Gun
         public GunBase Gun { get; private set; }
         public Vector3 Direction { get; protected set; }
         public float Speed { get; protected set; }
-        public uint Damage { get; set; }
+        public float Damage { get; protected set; }
 
         public abstract void Update();
 

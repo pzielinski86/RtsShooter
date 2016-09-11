@@ -5,6 +5,6 @@ namespace Game.Core.Unity
 {
     public interface INpcPrototype
     {
-        Npc Create();
+        INpc Create();
     }
 }

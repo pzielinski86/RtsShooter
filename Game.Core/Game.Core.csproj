@@ -38,6 +38,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttackPhase.cs" />
     <Compile Include="CharacterAnimationController.cs" />
     <Compile Include="CharacterAnimationType.cs" />
     <Compile Include="Collections\ObservableCollection.cs" />
@@ -49,14 +50,19 @@
     <Compile Include="Controls\CommandsLine\ICommand.cs" />
     <Compile Include="Controls\CommandsLine\ICommandLineExecuter.cs" />
     <Compile Include="Controls\CommandsLine\ICommandsLoader.cs" />
+    <Compile Include="INpc.cs" />
+    <Compile Include="INpcSpawner.cs" />
     <Compile Include="IPlayer.cs" />
+    <Compile Include="IWorldMap.cs" />
     <Compile Include="Logs\ILogger.cs" />
     <Compile Include="Logs\LogsLineContainer.cs" />
     <Compile Include="Logs\UnityLogger.cs" />
+    <Compile Include="NpcSpawner.cs" />
     <Compile Include="PlayerController.cs" />
     <Compile Include="Unity\CharacterTransform.cs" />
     <Compile Include="Unity\ICamera.cs" />
     <Compile Include="Unity\INpcController.cs" />
+    <Compile Include="Unity\IRandom.cs" />
     <Compile Include="Unity\NpcController.cs" />
     <Compile Include="Unity\UnityCamera.cs" />
     <Compile Include="Unity\UnityGuiAdapter.cs" />
@@ -71,7 +77,6 @@
     <Compile Include="Math\MathEx.cs" />
     <Compile Include="Npc.cs" />
     <Compile Include="NpcAttacksManager.cs" />
-    <Compile Include="NpcSpawnInfo.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\CharacterState.cs" />
     <Compile Include="ThirdPersonCamera.cs" />

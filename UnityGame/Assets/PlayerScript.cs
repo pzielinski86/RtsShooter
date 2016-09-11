@@ -12,7 +12,7 @@ using PlayerController = Game.Core.PlayerController;
 
 public class PlayerScript : MonoBehaviour, IHittable
 {
-    public Player Player { get; private set; }
+    public IPlayer Player { get; private set; }
     public PlayerController PlayerController { get; private set; }
     public Transform GunBarrel;
     public GameObject WorldMapComponent;

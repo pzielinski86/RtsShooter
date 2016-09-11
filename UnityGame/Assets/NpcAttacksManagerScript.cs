@@ -20,7 +20,9 @@ public class NpcAttacksManagerScript : MonoBehaviour
 
         Vector3[] spawnPlacePositions = GetSpawnPositions().ToArray();
 
-	    _worldMap.NpcAttacksManager = new NpcAttacksManager(_worldMap,Waves, spawnPlacePositions, NpcPrototypes.OfType<INpcPrototype>().ToArray());
+	    var spawner = new NpcSpawner(new UnityRandom(), spawnPlacePositions, NpcPrototypes.OfType<INpcPrototype>().ToArray());
+
+        _worldMap.NpcAttacksManager = new NpcAttacksManager(_worldMap, spawner,Waves);
 
         _worldMap.NpcAttacksManager.Start(Time.time);
     }

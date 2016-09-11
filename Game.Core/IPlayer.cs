@@ -10,8 +10,8 @@ namespace Game.Core
         GunBase CurrentGun { get; }
         float Speed { get; set; }
         CharacterState State { get; }
-        uint CurrentHealth { get; }
-        uint MaxHealth { get; }
+        float CurrentHealth { get; }
+        float MaxHealth { get; }
         void Aim();
         void UpdateIK();
         void Shoot();

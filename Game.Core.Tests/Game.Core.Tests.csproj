@@ -54,10 +54,13 @@
     <Compile Include="Controls\CommandsLine\CommandLineParserTests.cs" />
     <Compile Include="Controls\CommandsLine\CommandWindowTests.cs" />
     <Compile Include="Controls\CommandsLine\DisplayTextTests.cs" />
+    <Compile Include="NpcAttacksManagerTests.cs" />
+    <Compile Include="NpcSpawnerTests.cs" />
     <Compile Include="NpcTests.cs" />
     <Compile Include="PlayerControllerTests.cs" />
     <Compile Include="PlayerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThirdPersonCameraTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -60,8 +60,8 @@ namespace Game.Core.Tests
         {
             // arrange
             var bullet=new BasicBullet(null,Vector3.zero, Vector3.zero);
-            uint currentHealth = _sut.CurrentHealth;
-            uint expectedHealth = currentHealth - bullet.Damage;
+            float currentHealth = _sut.CurrentHealth;
+            float expectedHealth = currentHealth - bullet.Damage;
             
             // act
             _sut.Hit(bullet);

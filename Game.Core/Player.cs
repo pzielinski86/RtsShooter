@@ -27,8 +27,8 @@ namespace Game.Core
         public GunBase CurrentGun { get; private set; }
         public float Speed { get; set; }
         public CharacterState State { get; private set; }
-        public uint CurrentHealth { get; private set; }
-        public uint MaxHealth { get; private set; }
+        public float CurrentHealth { get; private set; }
+        public float MaxHealth { get; private set; }
 
         public void Aim()
         {

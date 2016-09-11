@@ -23,24 +23,25 @@ namespace Game.Core
         }
 
         public float Zoom => 5f;
+        public float CameraPositionYOffset => 1.8f;
 
-        public void Update(Player player)
+        public void Update(IPlayer player)
         {
             player.CharacterController.Transform.Rotate(0, _input.GetMouseXDelta(), 0);
 
             UpdateCameraPosition(player);
             SwitchToAimModeIfRequired(player);
 
-           UpdateCameraLookAt(player);
+            UpdateCameraLookAt(player);
         }
 
-        private void UpdateCameraLookAt(Player player)
+        private void UpdateCameraLookAt(IPlayer player)
         {
-            _cameraOffsetY = Mathf.Clamp(_cameraOffsetY + Input.GetAxis("Mouse Y") / 50f, -1, 1);
+            _cameraOffsetY = MathEx.Clamp(_cameraOffsetY + _input.GetMouseYDelta() / 50f, -1, 1);
             _cameraTransform.LookAt(player.CharacterController.Bounds.max + Vector3.up * _cameraOffsetY);
         }
 
-        private void SwitchToAimModeIfRequired(Player player)
+        private void SwitchToAimModeIfRequired(IPlayer player)
         {
             if (_input.GetRightMouseButton())
                 player.Aim();
@@ -53,16 +54,16 @@ namespace Game.Core
             }
         }
 
-        private void UpdateCameraPosition(Player player)
+        private void UpdateCameraPosition(IPlayer player)
         {
             var playerCenter = player.CharacterController.Center;
 
             var angle = -MathEx.AngleBetweenVector3(Vector3.forward, player.CharacterController.Transform.Forward);
 
-            var newX = playerCenter.x + Zoom * Mathf.Sin(angle * Mathf.Deg2Rad);
-            var newZ = playerCenter.z - Zoom * Mathf.Cos(angle * Mathf.Deg2Rad);
+            float newX = playerCenter.x + Zoom *(float) System.Math.Sin(angle*Mathf.Deg2Rad);
+            float newZ = playerCenter.z - Zoom * (float)System.Math.Cos(angle* Mathf.Deg2Rad);
 
-            _cameraTransform.Position = new Vector3(newX, player.CharacterController.Bounds.max.y+1.8f, newZ);            
+            _cameraTransform.Position = new Vector3(newX, player.CharacterController.Bounds.max.y + CameraPositionYOffset, newZ);
         }
     }
 }

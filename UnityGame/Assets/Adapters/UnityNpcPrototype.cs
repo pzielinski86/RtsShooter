@@ -11,7 +11,7 @@ namespace Assets.Adapters
     {
         public GameObject Prefab;
           
-        public Npc Create()
+        public INpc Create()
         {
             var gameObject = Object.Instantiate(Prefab);
 
