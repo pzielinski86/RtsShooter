@@ -9,7 +9,7 @@ using Game.Core.Unity;
 public class NpcScript : MonoBehaviour,IHittable
 {
     public Transform GunBarrel;
-    public Npc Npc { get; private set; }
+    public INpc Npc { get; private set; }
     private WorldMap _worldMap;
     // Use this for initialization
 

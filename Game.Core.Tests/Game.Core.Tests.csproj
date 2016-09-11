@@ -54,6 +54,7 @@
     <Compile Include="Controls\CommandsLine\CommandLineParserTests.cs" />
     <Compile Include="Controls\CommandsLine\CommandWindowTests.cs" />
     <Compile Include="Controls\CommandsLine\DisplayTextTests.cs" />
+    <Compile Include="MathExTests.cs" />
     <Compile Include="NpcAttacksManagerTests.cs" />
     <Compile Include="NpcSpawnerTests.cs" />
     <Compile Include="NpcTests.cs" />

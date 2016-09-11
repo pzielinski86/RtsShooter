@@ -14,7 +14,7 @@ namespace Game.Core
     {
         private readonly ITransform _cameraTransform;
         private readonly IInput _input;
-        private float _cameraOffsetY = 0;
+        private float _cameraLookAtOffsetY = 0;
 
         public ThirdPersonCamera(ITransform cameraTransform, IInput input)
         {
@@ -37,8 +37,8 @@ namespace Game.Core
 
         private void UpdateCameraLookAt(IPlayer player)
         {
-            _cameraOffsetY = MathEx.Clamp(_cameraOffsetY + _input.GetMouseYDelta() / 50f, -1, 1);
-            _cameraTransform.LookAt(player.CharacterController.Bounds.max + Vector3.up * _cameraOffsetY);
+            _cameraLookAtOffsetY = MathEx.Clamp(_cameraLookAtOffsetY + _input.GetMouseYDelta() / 50f, -1, 1);
+            _cameraTransform.LookAt(player.CharacterController.Bounds.max + Vector3.up * _cameraLookAtOffsetY);
         }
 
         private void SwitchToAimModeIfRequired(IPlayer player)
