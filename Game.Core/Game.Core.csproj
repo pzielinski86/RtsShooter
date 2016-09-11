@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F703A86D-CC21-40F9-8335-8BB67956D774}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Game.Core</RootNamespace>
+    <AssemblyName>Game.Core</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\UnityGame\Assets\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\UnityGame\Library\UnityAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CharacterAnimationController.cs" />
+    <Compile Include="CharacterAnimationType.cs" />
+    <Compile Include="Collections\ObservableCollection.cs" />
+    <Compile Include="Collections\ObservableCollectionEventArgs.cs" />
+    <Compile Include="Controls\CommandsLine\CommandLineExecuter.cs" />
+    <Compile Include="Controls\CommandsLine\CommandsLoader.cs" />
+    <Compile Include="Controls\CommandsLine\Commands\DisplayText.cs" />
+    <Compile Include="Controls\CommandsLine\CommandWindow.cs" />
+    <Compile Include="Controls\CommandsLine\ICommand.cs" />
+    <Compile Include="Controls\CommandsLine\ICommandLineExecuter.cs" />
+    <Compile Include="Controls\CommandsLine\ICommandsLoader.cs" />
+    <Compile Include="IPlayer.cs" />
+    <Compile Include="Logs\ILogger.cs" />
+    <Compile Include="Logs\LogsLineContainer.cs" />
+    <Compile Include="Logs\UnityLogger.cs" />
+    <Compile Include="PlayerController.cs" />
+    <Compile Include="Unity\CharacterTransform.cs" />
+    <Compile Include="Unity\ICamera.cs" />
+    <Compile Include="Unity\INpcController.cs" />
+    <Compile Include="Unity\NpcController.cs" />
+    <Compile Include="Unity\UnityCamera.cs" />
+    <Compile Include="Unity\UnityGuiAdapter.cs" />
+    <Compile Include="Unity\IGUI.cs" />
+    <Compile Include="Gun\BulletBase.cs" />
+    <Compile Include="Gun\BasicBullet.cs" />
+    <Compile Include="Gun\BasicGun.cs" />
+    <Compile Include="Gun\BulletsHandler.cs" />
+    <Compile Include="Gun\GunBase.cs" />
+    <Compile Include="ICharacterAnimationController.cs" />
+    <Compile Include="Math\InterpolatedFloat.cs" />
+    <Compile Include="Math\MathEx.cs" />
+    <Compile Include="Npc.cs" />
+    <Compile Include="NpcAttacksManager.cs" />
+    <Compile Include="NpcSpawnInfo.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Properties\CharacterState.cs" />
+    <Compile Include="ThirdPersonCamera.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unity\IAnimationController.cs" />
+    <Compile Include="Unity\ICharacterController.cs" />
+    <Compile Include="Unity\IGameObject.cs" />
+    <Compile Include="Unity\INavMeshAgent.cs" />
+    <Compile Include="Unity\INpcPrototype.cs" />
+    <Compile Include="Unity\IInput.cs" />
+    <Compile Include="Unity\IPhysics.cs" />
+    <Compile Include="Unity\ITransform.cs" />
+    <Compile Include="Unity\RaycastResult.cs" />
+    <Compile Include="Unity\UnityAnimationController.cs" />
+    <Compile Include="Unity\UnityCharacterController.cs" />
+    <Compile Include="Unity\UnityGameObject.cs" />
+    <Compile Include="Unity\UnityPhysics.cs" />
+    <Compile Include="Unity\UnityTransform.cs" />
+    <Compile Include="WaveAttackInfo.cs" />
+    <Compile Include="WorldMap.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
