@@ -37,7 +37,7 @@ namespace Game.Core
 
         private void UpdateCameraLookAt(IPlayer player)
         {
-            _cameraLookAtOffsetY = MathEx.Clamp(_cameraLookAtOffsetY + _input.GetMouseYDelta() / 50f, -1, 1);
+            _cameraLookAtOffsetY = MathEx.Clamp(_cameraLookAtOffsetY + _input.GetMouseYDelta() / 50f, -1, 3);
             _cameraTransform.LookAt(player.CharacterController.Bounds.max + Vector3.up * _cameraLookAtOffsetY);
         }
 

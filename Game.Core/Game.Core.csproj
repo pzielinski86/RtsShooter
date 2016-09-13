@@ -97,6 +97,7 @@
     <Compile Include="Unity\UnityTransform.cs" />
     <Compile Include="WaveAttackInfo.cs" />
     <Compile Include="WorldMap.cs" />
+    <Compile Include="WorldWall.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
