@@ -4,7 +4,7 @@ namespace Game.Core.Unity
 {
     public interface INavMeshAgent
     {
-        void SetDestination(Vector3 newDestination);
+        void    SetDestination(Vector3 newDestination);
         float StoppingDistance { get; set; }
         float RemainingDistance { get; }
         bool Enabled { get; set; }
@@ -25,8 +25,8 @@ namespace Game.Core.Unity
         public void SetDestination(Vector3 newDestination)
         {
             _navMeshObstacle.enabled = false;
-            _navMeshAgent.enabled = true;                 
-            _navMeshAgent.destination = newDestination;
+            _navMeshAgent.enabled = true;
+            _navMeshAgent.SetDestination(newDestination);
         }
 
         public void Stop()

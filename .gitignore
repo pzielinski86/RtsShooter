@@ -8,7 +8,7 @@
 *.chk
 *.edb
 *.ide
-
+UnityGame/temp/*
 *.user
 *.userosscache
 *.sln.docstates
