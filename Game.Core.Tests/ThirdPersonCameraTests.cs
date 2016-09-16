@@ -78,7 +78,7 @@ namespace Game.Core.Tests
         }
 
         [Test]
-        public void When_MouseIsMovedVerticallyUp_Then_CameraShouldUpAbovePlayer()
+        public void When_MouseIsMovedVerticallyUp_Then_CameraShouldGo_UpAbovePlayer()
         {
             // arrange
             var playerBounds = new Bounds(Vector3.zero, Vector3.one * 20f);
@@ -89,7 +89,7 @@ namespace Game.Core.Tests
             _sut.Update(_playerMock);
 
             // assert
-            var lookAt = new Vector3(10, 11, 10);
+            var lookAt = new Vector3(10, 13, 10);
             _cameraTransformMock.Received(1).LookAt(lookAt);
         }
 

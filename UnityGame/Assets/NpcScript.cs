@@ -20,10 +20,13 @@ public class NpcScript : MonoBehaviour,IHittable
         var animator = GetComponent<Animator>();
 
         var characterAnimationController = new CharacterAnimationController(animator);
-
         var characterTransform = new CharacterTransform(new UnityTransform(transform), new UnityTransform(GunBarrel));
 
-        var npcController = new NpcController(new UnityNavMeshAgent(GetComponent<NavMeshAgent>()),
+	    var navMeshAgent = GetComponent<NavMeshAgent>();
+	    var navMeshObstacle = GetComponent<NavMeshObstacle>();
+	    navMeshObstacle.enabled = false;
+
+        var npcController = new NpcController(new UnityNavMeshAgent(navMeshAgent, navMeshObstacle),
 	        new UnityGameObject(this.gameObject), characterAnimationController);
 
 	    Npc = _worldMap.InitNpc(characterTransform, npcController);

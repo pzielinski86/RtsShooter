@@ -33,7 +33,9 @@ public class BulletsScript : MonoBehaviour
 
     private void Bullets_ItemAdded(object sender, Game.Core.Collections.ObservableCollectionEventArgs<Game.Core.Gun.BulletBase> e)
     {
-        var bulletComponent = Instantiate(BasicBullet);
+        var bulletComponent = (GameObject)Instantiate(BasicBullet,e.Item.Position,Quaternion.identity);
+
+        bulletComponent.transform.localScale= new Vector3(e.Item.Gun.BulletRadius, e.Item.Gun.BulletRadius, e.Item.Gun.BulletRadius);
         _bulletComponents.Add(e.Item, bulletComponent);        
         bulletComponent.GetComponent<BasicBulletScript>().Bullet = e.Item;
     }

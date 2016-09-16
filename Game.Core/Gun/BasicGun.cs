@@ -6,6 +6,7 @@ namespace Game.Core.Gun
     {
         public BasicGun(BulletsHandler bulletsHandler) : base(bulletsHandler)
         {
+            BulletRadius = 0.2f;
         }
 
         protected override void DoShoot(Vector3 startPos, Vector3 direction)

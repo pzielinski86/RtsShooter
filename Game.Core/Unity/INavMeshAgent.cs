@@ -8,20 +8,31 @@ namespace Game.Core.Unity
         float StoppingDistance { get; set; }
         float RemainingDistance { get; }
         bool Enabled { get; set; }
+        void Stop();
     }
 
     public class UnityNavMeshAgent : INavMeshAgent
     {
         private readonly NavMeshAgent _navMeshAgent;
+        private readonly NavMeshObstacle _navMeshObstacle;
 
-        public UnityNavMeshAgent(NavMeshAgent navMeshAgent)
+        public UnityNavMeshAgent(NavMeshAgent navMeshAgent,NavMeshObstacle navMeshObstacle)
         {
             _navMeshAgent = navMeshAgent;
+            _navMeshObstacle = navMeshObstacle;
         }
 
         public void SetDestination(Vector3 newDestination)
-        {            
+        {
+            _navMeshObstacle.enabled = false;
+            _navMeshAgent.enabled = true;                 
             _navMeshAgent.destination = newDestination;
+        }
+
+        public void Stop()
+        {
+            _navMeshAgent.enabled = false;
+            _navMeshObstacle.enabled = true;            
         }
 
         public float StoppingDistance

@@ -18,13 +18,14 @@ namespace Game.Core.Gun
         public BulletsHandler BulletsHandler { get; private set; }
         public int CoolDownTimeInMs { get; private set; }
         public uint Range { get; private set; }
+        public float BulletRadius { get; set; }
 
         public void Shoot(Vector3 startPos, Vector3 direction)
         {
             if ((DateTime.Now - _lastUsed).TotalMilliseconds > CoolDownTimeInMs)
             {
                 _lastUsed = DateTime.Now;
-                DoShoot(startPos, direction);
+                DoShoot(startPos+(1.1f*BulletRadius*direction), direction);
             }
         }
 

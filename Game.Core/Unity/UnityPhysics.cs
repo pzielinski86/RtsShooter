@@ -9,15 +9,29 @@ namespace Game.Core.Unity
             RaycastHit unityRaycastHit;
             if (Physics.Raycast(position, currentDirection, out unityRaycastHit))
             {
-                string objectName = null;
+                var hitObject = unityRaycastHit.transform;
 
-                if (unityRaycastHit.transform != null)
-                    objectName = unityRaycastHit.transform.name;
-
-                return new RaycastResult(objectName, unityRaycastHit.distance,unityRaycastHit.point);
+                var rayCastResult= new RaycastResult(hitObject.tag, unityRaycastHit.distance,unityRaycastHit.point);
+                
+                return rayCastResult;
             }
 
-            return new RaycastResult(null, float.MaxValue,Vector3.zero);
+            return null;
+        }
+
+        public RaycastResult SphereRaycast(Vector3 position, Vector3 direction,float radius)
+        {
+            RaycastHit unityRaycastHit;
+            if (Physics.SphereCast(position, radius, direction, out unityRaycastHit))
+            {
+                var hitObject = unityRaycastHit.transform;
+
+                var rayCastResult = new RaycastResult(hitObject.tag, unityRaycastHit.distance, unityRaycastHit.point);
+
+                return rayCastResult;
+            }
+
+            return null;
         }
 
         public bool Contains(Bounds largerBox, Bounds smallerBox)

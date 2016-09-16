@@ -15,7 +15,7 @@ namespace Game.Core
             IPhysics physics,
             ICharacterController characterCharacterController)
         {
-            Speed = 5f;
+            Speed = 10f;
             _camera = camera;
             _physics = physics;
             CharacterController = characterCharacterController;
@@ -40,7 +40,7 @@ namespace Game.Core
             var crosshairRay = _camera.GetCrosshairRay();
             var hitInfo = _physics.Raycast(crosshairRay.origin, crosshairRay.direction);
 
-            if (hitInfo.ObjectName != null)
+            if (hitInfo != null)
             {
                 CharacterController.AnimationController.SetLookAtPosition(hitInfo.Position);
             }
@@ -54,7 +54,7 @@ namespace Game.Core
 
             var hitInfo = _physics.Raycast(crosshairRay.origin, crosshairRay.direction);
 
-            if (hitInfo.ObjectName != null)
+            if (hitInfo != null)
             {
                 CharacterController.AnimationController.Fire();
                 CurrentGun.Shoot(CharacterController.BarrelTransform.Position, (hitInfo.Position - CharacterController.BarrelTransform.Position).normalized);

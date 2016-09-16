@@ -78,18 +78,18 @@ namespace Game.Core.Tests
         {
             // arrange
             var gunRange = _sut.CurrentGun.Range;
-            _npcControllerMock.Astar.RemainingDistance.Returns(gunRange * 0.5f);
             var worldMapMock = Substitute.For<IWorldMap>();
 
             _characterTransform.Body.Position.Returns(Vector3.zero);
             _characterTransform.Body.Forward.Returns(-Vector3.forward);
 
+            worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, gunRange * 0.5f));
             worldMapMock.Player.CharacterController.Center.Returns(Vector3.right);
             // act
             _sut.Update(worldMapMock);
 
             // assert
-            _characterTransform.Body.Received(1).Rotate(0,90,0);
+            _characterTransform.Body.Received(1).Rotate(0,-90,0);
         }
 
         [Test]
@@ -97,8 +97,9 @@ namespace Game.Core.Tests
         {
             // arrange
             var gunRange = _sut.CurrentGun.Range;
-            _npcControllerMock.Astar.RemainingDistance.Returns(gunRange * 0.5f);
+            
             var worldMapMock = Substitute.For<IWorldMap>();
+            worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, gunRange * 0.5f));
 
             // act
             _sut.Update(worldMapMock);
@@ -110,10 +111,9 @@ namespace Game.Core.Tests
         [Test]
         public void When_Player_IsNot_InGunRange_Then_NpcShouldRun()
         {
-            // arrange            
-            _npcControllerMock.Astar.RemainingDistance.Returns(150);
+            // arrange                        
             var worldMapMock = Substitute.For<IWorldMap>();
-
+            worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, _sut.CurrentGun.Range*2));
             // act
             _sut.Update(worldMapMock);
 
@@ -125,10 +125,9 @@ namespace Game.Core.Tests
         [Test]
         public void When_Player_Is_InGunRange_Then_NpcShouldAim()
         {
-            // arrange
-            var gunRange = _sut.CurrentGun.Range;
-            _npcControllerMock.Astar.RemainingDistance.Returns(gunRange * 0.5f);
+            // arrange            
             var worldMapMock = Substitute.For<IWorldMap>();
+            worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, _sut.CurrentGun.Range * 0.5f));
 
             _characterTransform.Barrel.Position.Returns(Vector3.zero);
             _characterTransform.Barrel.Forward.Returns(-Vector3.forward);
@@ -139,16 +138,15 @@ namespace Game.Core.Tests
             _sut.Update(worldMapMock);
 
             // assert
-            _characterTransform.Body.Received(1).Rotate(0, 90, 0);
+            _characterTransform.Body.Received(1).Rotate(0, -90, 0);
         }
 
         [Test]
         public void When_Player_Is_InGunRange_Then_NpcShouldShoot()
         {
             // arrange
-            var gunRange = _sut.CurrentGun.Range;
-            _npcControllerMock.Astar.RemainingDistance.Returns(gunRange * 0.5f);
             var worldMapMock = Substitute.For<IWorldMap>();
+            worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, _sut.CurrentGun.Range * 0.5f));
 
             // act
             _sut.Update(worldMapMock);
@@ -168,7 +166,7 @@ namespace Game.Core.Tests
                 .Returns(new RaycastResult("obstacle", 5, Vector3.zero));
             var worldMapMock = Substitute.For<IWorldMap>();
 
-            _npcControllerMock.Astar.RemainingDistance.Returns(100);
+            worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, _sut.CurrentGun.Range * 0.5f));
             _npcControllerMock.Astar.StoppingDistance = 100;
             _characterTransform.Body.Position.Returns(Vector3.zero);
             worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, 50));
@@ -180,20 +178,40 @@ namespace Game.Core.Tests
             Assert.That(_npcControllerMock.Astar.StoppingDistance, Is.EqualTo(90));
         }
 
+        //[Test]
+        //public void When_Player_Is_InGunRange_But_Shooting_Could_InjureOtherNpc_Then_It_ShouldNotShoot()
+        //{
+        //    // arrange
+
+        //    // obstacle
+        //    _physicsMock.Raycast(Arg.Any<Vector3>(), Arg.Any<Vector3>())
+        //        .Returns(new RaycastResult("obstacle", 5, Vector3.zero));
+        //    var worldMapMock = Substitute.For<IWorldMap>();
+
+        //    worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, _sut.CurrentGun.Range * 0.5f));
+        //    _npcControllerMock.Astar.StoppingDistance = 100;
+        //    _characterTransform.Body.Position.Returns(Vector3.zero);
+        //    worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, 50));
+
+        //    // act
+        //    _sut.Update(worldMapMock);
+
+        //    // assert
+        //    Assert.That(_npcControllerMock.Astar.StoppingDistance, Is.EqualTo(90));
+        //}
+
         [Test]
-        public void When_Player_Is_InGunRange_And_There_IsObstacle_BetweenThem_And_Then_NpcShouldNot_ComeCloser_Than10Units()
+        public void When_Player_Is_InGunRange_And_There_IsObstacle_BetweenThem_Then_NpcShouldNot_ComeCloser_Than10Units()
         {
             // arrange
-
+            var worldMapMock = Substitute.For<IWorldMap>();
+            worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, 10.4f));
             // obstacle
             _physicsMock.Raycast(Arg.Any<Vector3>(), Arg.Any<Vector3>())
                 .Returns(new RaycastResult("obstacle", 5, Vector3.zero));
-            var worldMapMock = Substitute.For<IWorldMap>();
-
-            _npcControllerMock.Astar.RemainingDistance.Returns(10.1f);
-            _npcControllerMock.Astar.StoppingDistance = 10.1f;
+                        
+            _npcControllerMock.Astar.StoppingDistance = 10.5f;
             _characterTransform.Body.Position.Returns(Vector3.zero);
-            worldMapMock.Player.CharacterController.Transform.Position.Returns(new Vector3(0, 0, 50));
 
             // act
             _sut.Update(worldMapMock);

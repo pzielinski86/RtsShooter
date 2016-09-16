@@ -25,7 +25,7 @@ namespace Game.Core
             _npcController = npcController;
             _physics = physics;
             CurrentGun = new BasicGun(bulletsHandler);
-            Speed = 5f;
+            Speed = 8f;
             CurrentHealth = MaxHealth = 500;
         }
 
@@ -54,30 +54,49 @@ namespace Game.Core
             if (State == CharacterState.Killed)
                 return;
 
-            _npcController.Astar.SetDestination(worldMap.Player.CharacterController.Transform.Position);
+            var remainingDist = Vector3.Distance(worldMap.Player.CharacterController.Transform.Position,
+                _transform.Body.Position);
 
-            if (_npcController.Astar.RemainingDistance <= _npcController.Astar.StoppingDistance)
+            if (remainingDist <= _npcController.Astar.StoppingDistance)
             {
                 LookAtPlayer(worldMap);
 
                 var result = _physics.Raycast(_transform.Body.Position, _transform.Body.Forward);
-                var playerDist = Vector3.Distance(_transform.Body.Position, worldMap.Player.CharacterController.Transform.Position);
+                var playerDist = Vector3.Distance(_transform.Body.Position,
+                    worldMap.Player.CharacterController.Transform.Position);
 
-                if (result.Distance < playerDist)
+                if (result != null && result.Distance < playerDist)
+                {
                     TryToComeCloserToPlayer();
+                    return;
+                }
                 else
+                {
                     SetDefaultStoppingDistance();
+                    _npcController.Astar.Stop();
+                }
 
                 Idle();
-                Shoot(worldMap);
+                Shoot(worldMap, playerDist);
             }
             else
+            {
+                _npcController.Astar.SetDestination(worldMap.Player.CharacterController.Transform.Position);
                 Run();
+            }
         }
 
-        private void Shoot(IWorldMap worldMap)
+        private void Shoot(IWorldMap worldMap, float playerDist)
         {
             AimAtPlayer(worldMap.Player);
+
+            var result = _physics.SphereRaycast(_transform.Barrel.Position, _transform.Barrel.Forward,CurrentGun.BulletRadius);
+
+            if (result != null && result.Distance <= playerDist && result.IsNpc)
+            {
+                return;
+            }
+
             _npcController.Animation.Fire();
             CurrentGun.Shoot(_transform.Barrel.Position, _transform.Barrel.Forward);
         }
@@ -105,7 +124,7 @@ namespace Game.Core
 
         private void TryToComeCloserToPlayer()
         {
-            var newStoppingDistance = _npcController.Astar.StoppingDistance - _npcController.Astar.StoppingDistance/10f;
+            var newStoppingDistance = _npcController.Astar.StoppingDistance - _npcController.Astar.StoppingDistance / 10f;
             _npcController.Astar.StoppingDistance = Mathf.Max(newStoppingDistance, MinDistanceToPlayer);
         }
 
